@@ -6,7 +6,8 @@ CREATE TABLE addresse (
 CREATE TABLE utilisateur (
     id serial PRIMARY KEY,
     nom varchar(64),
-    status char(1)
+    mdp varchar(64),
+    status integer
 );
 
 CREATE TABLE appartement(
@@ -15,6 +16,8 @@ CREATE TABLE appartement(
     superficie integer,
     disponible boolean,
     prix integer,
+    valide_admin boolean,
+    valide_proprio boolean,
     proprietaire integer FOREIGN KEY REFERENCES utilisateur(id), 
     addresse integer FOREIGN KEY REFERENCES addresse(id)
 );
