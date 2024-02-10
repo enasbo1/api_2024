@@ -1,9 +1,10 @@
 <?php
-
+include_once "./service/connection.php";
 include_once "./todo.php";
 
 header("Content-Type: application/json; charset=utf8");
 header("Access-Control-Allow-Origin: *");
+
 
 function resolve_with_message($status, $message) {
     http_response_code($status);
@@ -81,6 +82,6 @@ function router() {
             exit();
     }
 }
-
+prepare_connection();
 router();
 ?>
