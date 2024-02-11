@@ -1,5 +1,7 @@
 <?php
-include_once "./service/connection.php";
+include_once "./service/utilisateur.php";
+include_once "./controller/utilisateur.php";
+
 include_once "./todo.php";
 
 header("Content-Type: application/json; charset=utf8");
@@ -63,6 +65,8 @@ function todo_controller($uri) {
     }
 }
 
+
+
 function router() {
     $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     $uri = explode( '/', $uri );
@@ -76,7 +80,9 @@ function router() {
         case "to-do":
             todo_controller($uri); 
             break;
-
+        case "utilisateur":
+            utilisateur_controler($uri);
+            break;
         default:
             resolve_with_message(404, "Endpoint does not exist");
             exit();

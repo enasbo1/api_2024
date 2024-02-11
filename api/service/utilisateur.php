@@ -1,13 +1,18 @@
 <?php
-include_once("./repository/connection.php");
-include_once("../shared/utilisateur.php");
+include_once("./repository/utilisateur.php");
+include_once("./shared/utilisateur.php");
 function prepare_connection()
 {
     session_start();
 }
-class Service_connection
+class Service_utilisateur
 {
-    private Repository_connection $repostitory = new Repository_connection;
+    private Repository_utilisateur $repostitory;
+
+    public function __construct()
+    {
+        $this->repostitory = new Repository_utilisateur;
+    }
     public function has_acces(int $privilege_level)
     {
         /*
@@ -28,7 +33,7 @@ class Service_connection
     {
         $utilisateur = $this->repostitory->connect($nom, $mdp);
         if (is_null($utilisateur)) {
-            throw new Exception("l'utilisateur ou le mot de passe est incorect");
+            resolve_with_message(403, "l'utilisateur ou le mot de passe est incorect");
         } else {
             $_SESSION["utilisateur"] = $utilisateur;
         }
