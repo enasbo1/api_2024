@@ -1,0 +1,201 @@
+{
+  "apiVersion": "1.0.0",
+  "swaggerVersion": "2.0",
+  "basePath": "/api",
+  "paths": {
+    "/utilisateurs": {
+      "post": {
+        "summary": "Inscription d'un nouvel utilisateur",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nom": { "type": "string" },
+                "mdp": { "type": "string" },
+                "status": { "type": "string", "enum": ["client", "propriétaire", "admin"] }
+              },
+              "required": ["nom", "mdp", "status"]
+            }
+          }
+        ]
+      }
+    },
+    "/utilisateurs/{id}": {
+      "get": {
+        "summary": "Obtenir des informations sur un utilisateur spécifique",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      },
+      "put": {
+        "summary": "Mise à jour des informations d'un utilisateur",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nom": { "type": "string" },
+                "mdp": { "type": "string" },
+                "status": { "type": "string", "enum": ["client", "propriétaire", "admin"] }
+              }
+            }
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Supprimer un utilisateur",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ]
+      }
+    },
+    "/appartements": {
+      "get": {
+        "summary": "Lister tous les appartements disponibles",
+        "responses": {
+          "200": {
+            "description": "Une liste d'appartements",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/appartement"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Ajouter un nouvel appartement",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/appartement"
+            }
+          }
+        ]
+      }
+    },
+    "/appartements/{id}": {
+      "get": {
+        "summary": "Obtenir les détails d'un appartement spécifique",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ]
+                "responses": {
+          "200": {
+            "description": "Détails de l'appartement",
+            "schema": {
+              "$ref": "#/definitions/appartement"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Mise à jour des détails d'un appartement",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/appartement"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Appartement mis à jour"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Supprimer un appartement",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Appartement supprimé"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Appartement": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "adresse": {
+          "type": "string"
+        },
+        "capacite": {
+          "type": "integer"
+        },
+        "superficie": {
+          "type": "number"
+        },
+        "disponible": {
+          "type": "boolean"
+        },
+        "prix": {
+          "type": "number"
+        },
+        "valide_admin": {
+          "type": "boolean"
+        },
+        "valide_proprio": {
+          "type": "boolean"
+        },
+        "proprietaire": {
+          "type": "string"
+        }
+      },
+      "required": ["adresse", "capacite", "superficie", "disponible", "prix"]
+    }
+  }
+}
