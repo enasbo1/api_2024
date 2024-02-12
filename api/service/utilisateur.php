@@ -13,7 +13,7 @@ class Service_utilisateur
     {
         $this->repostitory = new Repository_utilisateur;
     }
-    public function has_acces(int $privilege_level)
+    public function has_access(int $privilege_level)
     {
         /*
         *   renvoie si l'utilisateur a au moins le status $privilege_level
