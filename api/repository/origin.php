@@ -65,10 +65,10 @@ class Repository_origin
             } else {
                 $q .= " AND ";
             }
-            $q .= $key . ' = ' . $val;
+            $q .= $key . ' = \'' . $val ."'";
         }
         $elements = pg_query($this->connection, $q);
-        return $elements;
+        return pg_fetch_assoc($elements);
     }
     
     public function delete(String $table, String $attribut, String $value)
