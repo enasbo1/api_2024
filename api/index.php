@@ -1,6 +1,8 @@
 <?php
 include_once "./service/utilisateur.php";
 include_once "./controller/utilisateur.php";
+include_once "./controller/appartement.php";
+
 
 include_once "./todo.php";
 
@@ -82,6 +84,16 @@ function router() {
             break;
         case "utilisateur":
             utilisateur_controler($uri);
+            break;
+        case "appartement"://recuperation info appartement
+            appartement_controler($uri);
+            resolve_with_message(200,"code a implémenter");
+            break;
+        case "reservation"://effectuer une reservation
+            resolve_with_message(200,"code a implémenter");
+            break;
+        case "edit"://edit/patch une donnée d'un appartement
+            resolve_with_message(200,"code a implémenter");
             break;
         default:
             resolve_with_message(404, "Endpoint does not exist");

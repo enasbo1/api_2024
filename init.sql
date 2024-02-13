@@ -1,3 +1,5 @@
+
+
 CREATE TABLE addresse (
     id serial PRIMARY KEY,
     lieu varchar(64)
@@ -34,10 +36,10 @@ CREATE TABLE reservation(
 -- 1 appart propriétaire
 -- tout à true
 
-INSERT into utilisateur (nom, mdp, status) VALUES ("user1", "password",1);
-INSERT into utilisateur (nom, mdp, status) VALUES ("user2", "password",2);
-INSERT into utilisateur (nom, mdp, status) VALUES ("user3", "password",3);
+INSERT into utilisateur (nom, mdp, status) VALUES ('user1', 'password',1);
+INSERT into utilisateur (nom, mdp, status) VALUES ('user2', 'password',2);
+INSERT into utilisateur (nom, mdp, status) VALUES ('user3', 'password',3);
 
-INSERT into addresse (lieu) VALUES ("Mars");
+INSERT into addresse (lieu) VALUES ('Mars');
 
 INSERT into appartement (capacite, superficie, disponible, prix, valide_admin, valide_proprio, proprietaire,addresse) VALUES (2,80,1,12000,1,1,2,1);
