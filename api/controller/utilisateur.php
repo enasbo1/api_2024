@@ -8,18 +8,22 @@ function utilisateur_controler($uri)
     switch ($_SERVER['REQUEST_METHOD']) {
         case "GET":
             if ($model->has_access(3)) {
-                // get all user
-            } elseif ($model->is_status(0)) {
-                $error = header_verification([
-                    "nom" => "r",
-                    "mdp" => "r"
-                ]);
-                if (is_null($error)) {
-                    $header = $_POST;
-                    $model->connect($header['nom'], $header['mdp']);
-                } else {
-                    resolve_with_message(400, "Please Provide a name and a password");
-                }
+                $utilisateurs = $model->get_all();
+                resolve_with_content(200, $utilisateurs);
+            }else{
+                resolve_with_message(403, "vous n'avez pas les droit necessaire pour optenir ces information");
+            }
+            break;
+        case "PUT":
+            $error = header_verification([
+                "nom" => "r",
+                "mdp" => "r"
+            ]);
+            if (is_null($error)) {
+                $header = $_POST;
+                $model->connect($header['nom'], $header['mdp']);
+            } else {
+                resolve_with_message(400, "Please Provide a name and a password");
             }
             break;
         case "POST":

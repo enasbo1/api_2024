@@ -1,4 +1,5 @@
 <?php
+use LDAP\Result;
 class Repository_origin
 {
     private $connection = null;
@@ -68,7 +69,7 @@ class Repository_origin
             $q .= $key . ' = \'' . $val ."'";
         }
         $elements = pg_query($this->connection, $q);
-        return pg_fetch_assoc($elements);
+        return pg_fetch_all($elements);
     }
     
     public function delete(String $table, String $attribut, String $value)

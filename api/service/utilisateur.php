@@ -13,6 +13,8 @@ class Service_utilisateur
     {
         $this->repostitory = new Repository_utilisateur;
     }
+
+
     public function has_access(int $privilege_level)
     {
         /*
@@ -53,7 +55,7 @@ class Service_utilisateur
     {
         if ($this->repostitory->is_inscrit($nom)) {
             resolve_with_message(400, "le nom d'utilisateur existe déjà");
-        }else{
+        } else {
             $this->repostitory->inscription($nom, $mdp, 1);
             resolve_with_message(201, "l'utilisateur a bien été enregistré");
         }
@@ -63,5 +65,11 @@ class Service_utilisateur
     {
         session_destroy();
         resolve_with_message(200, "l'utilisateur a bien été déconnecté");
+    }
+
+    public function get_all()
+    {
+        $utilisateurs = $this->repostitory->get_all();
+        return $utilisateurs;
     }
 }
