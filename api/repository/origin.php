@@ -18,7 +18,7 @@ class Repository_origin
     public function post(string $table, array $array)
     {
         try {
-            $q = 'INSERT INTO ' . strtoupper($table) . '(';
+            $q = 'INSERT INTO ' . strtoupper($table) . ' (';
             $i = 1;
             foreach ($array as $key => $value) {
                 $q = $q . $key;
@@ -28,10 +28,10 @@ class Repository_origin
                 $i += 1;
             }
 
-            $q = $q . ') VALUE (';
+            $q = $q . ') VALUES (';
             $i = 1;
             foreach ($array as $key => $value) {
-                $q = $q . $value;
+                $q = $q . "'" . $value . "'";
                 if ($i < count($array)) {
                     $q = $q . ",";
                 }

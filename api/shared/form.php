@@ -56,7 +56,7 @@ function header_message(string $co, string $arg)
             return '';
     }
 }
-function header_dechiffre($value, string $type, string $origin, string $name)
+function header_dechiffre($value, string $type, string $name)
 {
     $validate = [
         '!url' => FILTER_VALIDATE_URL,
@@ -88,7 +88,7 @@ function header_dechiffre($value, string $type, string $origin, string $name)
     }
 }
 
-function header_verification(string $origin, array $form): String|null
+function header_verification(array $form): String|null
 {
     foreach ($form as $key => $type) {
         if (empty($_POST[$key]) || !isset($_POST[$key])) {
@@ -100,19 +100,7 @@ function header_verification(string $origin, array $form): String|null
                 $_POST[$key] = "";
             }
         }
-        header_dechiffre($_POST[$key], $type, $origin, $key);
+        header_dechiffre($_POST[$key], $type, $key);
     }
     return null;
-}
-
-
-function header_save(string $origin, array $form)
-{
-    header_verification($origin, $form);
-    if (!isset($_SESSION['post'])) {
-        $_SESSION['post'] = [];
-    }
-    foreach ($form as $key => $value) {
-        $_SESSION['post'][$key] = $_POST[$key];
-    }
 }
