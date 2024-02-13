@@ -26,7 +26,15 @@ class Service_utilisateur
         if (!isset($_SESSION["utilisateur"]->id)) {
             return false;
         }
-        return $_SESSION["status"] >= $privilege_level;
+        return $_SESSION["utilisateur"]->status >= $privilege_level;
+    }
+    public function is_status(int $privilege_level): bool
+    {
+        $status = 0;
+        if (isset($_SESSION["utilisateur"]->status)) {
+            $status = $_SESSION["utilisateur"]->status;
+        }
+        return $status == $privilege_level;
     }
 
     public function connect(String $nom, String $mdp)
@@ -36,11 +44,24 @@ class Service_utilisateur
             resolve_with_message(403, "l'utilisateur ou le mot de passe est incorect");
         } else {
             $_SESSION["utilisateur"] = $utilisateur;
+            resolve_with_message(200, "l'utilisateur a bien été connecté");
+        }
+    }
+
+
+    public function inscription(String $nom, String $mdp)
+    {
+        if ($this->repostitory->is_inscrit($nom)) {
+            resolve_with_message(400, "le nom d'utilisateur existe déjà");
+        }else{
+            $this->repostitory->inscription($nom, $mdp, 1);
+            resolve_with_message(201, "l'utilisateur a bien été enregistré");
         }
     }
 
     public function disconnect()
     {
-        session_abort();
+        session_destroy();
+        resolve_with_message(200, "l'utilisateur a bien été déconnecté");
     }
 }
