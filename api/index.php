@@ -95,6 +95,12 @@ function router() {
         case "edit"://edit/patch une donnée d'un appartement
             resolve_with_message(200,"code a implémenter");
             break;
+        // case "create":
+        //     resolve_with_message(200,"code a implementer");
+        //     break;
+        // case "delete":
+        //     resolve_with_message(200,"code a implementer");
+        //     break;
         default:
             resolve_with_message(404, "Endpoint does not exist");
             exit();

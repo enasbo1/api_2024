@@ -4,7 +4,14 @@ include_once("./shared/appartement.php");
 
 class Service_appartement
 {
+    private Repository_appartement $repostitory;
+
+    public function __construct()
+    {
+        $this->repostitory = new Repository_appartement;
+    }
+
     public function get_list(){
-        
+
     }
 }
