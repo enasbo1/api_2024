@@ -1,4 +1,7 @@
 <?php
+
+use LDAP\Result;
+
 include_once("./repository/origin.php");
 include_once("./shared/utilisateur.php");
 
@@ -18,7 +21,7 @@ class Repository_utilisateur extends Repository_origin
             return null;
         }else{
             $utilisateur = new Utilisateur;
-            $utilisateur->set_from_array($element);
+            $utilisateur->set_from_array($element[0]);
             return $utilisateur;
         }
 
@@ -31,5 +34,11 @@ class Repository_utilisateur extends Repository_origin
             "mdp" => $mdp,
             "status" => $status
         ]);
+    }
+
+    public function get_all()
+    {
+        $reponse = $this->get("utilisateur",["id", "nom", "status"], []);
+        return $reponse;
     }
 }
