@@ -71,7 +71,37 @@ class Repository_origin
         $elements = pg_query($this->connection, $q);
         return pg_fetch_all($elements);
     }
-    
+
+    public function update(string $table, array $updates, array $restric)
+    {
+        try {
+            $q = "UPDATE $table SET ";
+            $i = 1;
+            foreach ($updates as $col=>$value) {
+                $q .= $col . " = '" . $value . "'";
+                if ($i < count($updates)) {
+                    $q = $q . ",";
+                }
+                $i += 1;
+            }
+
+            $i = 0;
+            foreach ($restric as $key => $val) {
+                if ($i == 0) {
+                    $q .= " WHERE ";
+                    $i = 1;
+                } else {
+                    $q .= " AND ";
+                }
+                $q .= $key . ' = \'' . $val ."'";
+            }
+            pg_query($this->connection, $q);
+
+        } catch (Exception $e) {
+            die('Erreur : ' . $e->getMessage());
+        }
+    }
+
     public function delete(String $table, String $attribut, String $value)
     {
         $q = 'DELETE FROM ' . strtoupper($table) . ' WHERE ' . $attribut . ' = ' . $value;

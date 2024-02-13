@@ -41,4 +41,9 @@ class Repository_utilisateur extends Repository_origin
         $reponse = $this->get("utilisateur",["id", "nom", "status"], []);
         return $reponse;
     }
+
+    public function modifier_status(int $utilisateur_id, int $status)
+    {
+        $this->update("utilisateur",["status"=>$status], ["id"=>$utilisateur_id]);
+    }
 }
