@@ -13,13 +13,13 @@ function reservation_controler($uri)
                 $err = header_verification([
                     "debut" => "r",
                     "fin" => "r",
-                    "appartement" => "r"
+                    "lieu" => "r"
                 ]);
                 $header = $_POST;
                 if(is_null($err)){
                     $model->verif_date_start($header["debut"]);
                     $model->verif_date_debut_fin($header["debut"],$header["fin"]);
-                    $model->create_reservation(1,$header["debut"],$header["fin"], $_SESSION["utilisateur"]->id);
+                    $model->create_reservation($header["lieu"],$header["debut"],$header["fin"], $_SESSION["utilisateur"]->id);
                     resolve_with_message(200, "votre réservation a bien été effectué");
                 } else {
                     resolve_with_message(400, "Please provide the selected appartement and a duration (date of start and date of end)");
