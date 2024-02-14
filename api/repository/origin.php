@@ -28,7 +28,7 @@ class Repository_origin
                 $i += 1;
             }
 
-            $q = $q . ') VALUE (';
+            $q = $q . ') VALUES (';
             $i = 1;
             foreach ($array as $key => $value) {
                 $q = $q . $value;
