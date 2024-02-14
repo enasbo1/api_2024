@@ -72,4 +72,8 @@ class Service_utilisateur
         $utilisateurs = $this->repostitory->get_all();
         return $utilisateurs;
     }
+
+    public function modifier_status(int $utilisateur_id, int $status){
+        $this->repostitory->modifier_status($utilisateur_id, $status);
+    }
 }

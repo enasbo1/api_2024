@@ -14,6 +14,22 @@ function utilisateur_controler($uri)
                 resolve_with_message(403, "vous n'avez pas les droit necessaire pour optenir ces information");
             }
             break;
+        case "UPDATE":
+            if ($model->has_access(3)) {
+                $error = header_verification([
+                    "status" => "!int :<,4"
+                ]);
+                if (is_null($error)) {
+                    $header = $_POST;
+                    $model->modifier_status($uri[3], (int) $header['status']);
+                    resolve_with_message(200, "le status de l'utilisateur a été modifié avec succès");
+                } else {
+                    resolve_with_message(400, "veillez specifier le status que vous voulez donner à l'utilisateur");
+                }
+            }else{
+                resolve_with_message(403, "vous n'avez pas les droit necessaire pour optenir ces information");
+            }
+            break;
         case "PUT":
             $error = header_verification([
                 "nom" => "r",
