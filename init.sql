@@ -20,6 +20,8 @@ CREATE TABLE appartement(
     prix integer,
     valide_admin boolean,
     valide_proprio boolean,
+    proprietaire integer,
+    addresse integer,
     CONSTRAINT proprietaire FOREIGN KEY(id) REFERENCES utilisateur(id),
     CONSTRAINT addresse FOREIGN KEY(id) REFERENCES addresse(id)
 );
@@ -28,6 +30,8 @@ CREATE TABLE reservation(
     id serial PRIMARY KEY,
     date_debut DATE,
     date_fin DATE,
+    proprietaire integer,
+    addresse integer,
     CONSTRAINT proprietaire FOREIGN KEY(id) REFERENCES utilisateur(id), 
     CONSTRAINT lieu FOREIGN KEY(id) REFERENCES appartement(id)
 );
@@ -42,4 +46,4 @@ INSERT into utilisateur (nom, mdp, status) VALUES ('user3', 'password',3);
 
 INSERT into addresse (lieu) VALUES ('Mars');
 
-INSERT into appartement (capacite, superficie, disponible, prix, valide_admin, valide_proprio, proprietaire,addresse) VALUES (2,80,1,12000,1,1,2,1);
+INSERT into appartement (capacite, superficie, disponible, prix, valide_admin, valide_proprio, proprietaire, addresse) VALUES (2,80,true,12000,true,true,2,1);
