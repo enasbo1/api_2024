@@ -9,7 +9,7 @@ function appartement_controler($uri)
     switch ($_SERVER['REQUEST_METHOD']) {
         case "GET":
             $_POST = getallheaders();
-            $id = header_verification("", [
+            $id = header_verification([
                 "id" => "r"
             ]);
             if (is_null($id)) {
@@ -28,7 +28,7 @@ function appartement_controler($uri)
             }
             }
             $_POST = getallheaders();
-            $appartement = header_verification("", [
+            $appartement = header_verification([
                 "capacite"=>"r",
                 "superficie" => "r",
                 // "disponible" => "availaible",
@@ -52,7 +52,7 @@ function appartement_controler($uri)
                 break;
             }
             $_POST = getallheaders();
-            $id = header_verification("", [
+            $id = header_verification([
                 "id" => "r"
             ]);
             resolve_with_message(200,"code pour supprimer un appartement");

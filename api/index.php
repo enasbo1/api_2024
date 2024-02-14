@@ -3,6 +3,8 @@ include_once "./service/utilisateur.php";
 include_once "./controller/utilisateur.php";
 include_once "./controller/appartement.php";
 include_once "./controller/reservation.php";
+include_once "./controller/addresse.php";
+
 
 
 include_once "./todo.php";
@@ -86,6 +88,8 @@ function router() {
         case "utilisateur":
             utilisateur_controler($uri);
             break;
+        case "addresse":
+            addresse_controler($uri);
         case "appartement"://recuperation info appartement
             appartement_controler($uri);
             resolve_with_message(501,"code a implémenter");

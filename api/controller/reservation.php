@@ -15,7 +15,7 @@ function reservation_controler($uri)
             }
             }
             $_POST = getallheaders();
-            $err = header_verification("", [
+            $err = header_verification([
                 "debut" => "r",
                 "fin" => "r",
                 "appartement" => "r"
@@ -32,7 +32,6 @@ function reservation_controler($uri)
                 break;
             }
 
-            break;
         case 'DELETE':
             if(0){ //temporary
             if(!$user->has_access(1)){
@@ -41,7 +40,7 @@ function reservation_controler($uri)
             }
             }
             $_POST = getallheaders();
-            $err = header_verification("", [
+            $err = header_verification([
                 "reservation" => "r"
             ]);
             if(is_null($err)){
