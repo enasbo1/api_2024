@@ -33,7 +33,7 @@ CREATE TABLE reservation(
     client integer,
     lieu integer,
     CONSTRAINT client FOREIGN KEY(client) REFERENCES utilisateur(id), 
-    CONSTRAINT lieu FOREIGN KEY(client) REFERENCES appartement(id)
+    CONSTRAINT lieu FOREIGN KEY(lieu) REFERENCES appartement(id)
 );
 
 -- 1 user pr statut
