@@ -16,10 +16,10 @@ class Repository_reservation extends Repository_origin
         $Dfin=date('Y-m-d',strtotime($fin));
         $this->post("reservation",
         array(
-            "addresse"=> $appartement_id,
+            "lieu"=> $appartement_id,
             "date_debut"=> $Ddebut,
             "date_fin"=> $Dfin,
-            "proprietaire"=> "1"
+            "client"=> "1"
             )
         );
     }
