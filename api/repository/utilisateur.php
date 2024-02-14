@@ -1,7 +1,4 @@
 <?php
-
-use LDAP\Result;
-
 include_once("./repository/origin.php");
 include_once("./shared/utilisateur.php");
 
