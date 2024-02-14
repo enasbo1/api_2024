@@ -14,4 +14,12 @@ class Service_appartement
     public function get_list(){
 
     }
+
+    public function delete($id){
+    
+    }
+
+    public function create($id){
+
+    }
 }
