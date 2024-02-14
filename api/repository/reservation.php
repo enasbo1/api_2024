@@ -6,11 +6,6 @@ include_once("./shared/reservation.php");
 
 class Repository_reservation extends Repository_origin
 {
-    function convertDate($dateText) {
-        $dateObj = DateTime::createFromFormat('d/m/Y', $dateText);
-        return $dateObj->format('Y-m-d');
-    }
-
     public function create_reservation($appartement_id,$debut,$fin, $client){
         $Ddebut=date('Y-m-d',strtotime($debut));
         $Dfin=date('Y-m-d',strtotime($fin));
@@ -23,7 +18,12 @@ class Repository_reservation extends Repository_origin
             )
         );
     }
+
+    public function is_owner($appartement, $client){
+        $ownerV =$this->get("reservation",["id"],["id"=> $appartement,"client"=> $client]);
+        return $ownerV;
+    }
     public function delete_reservation($id){
-        $q="";
+        $this->delete("reservation","id",$id);
     }
 }

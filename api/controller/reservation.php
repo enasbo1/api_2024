@@ -38,11 +38,13 @@ function reservation_controler($uri)
             }
             $_POST = getallheaders();
             $err = header_verification([
-                "reservation" => "r"
+                "reservation_ID" => "r"
             ]);
+            $header = $_POST;
             if(is_null($err)){
-                $user=1;
-                
+                $model->is_owner($header["reservation_ID"],$_SESSION["utilisateur"]->id);
+                $model->delete_reservation($header["reservation_ID"]);
+                resolve_with_message(200, "reservation annulé avec succes");
             } else {
                 resolve_with_message(400, "Please provide the reservation code");
                 break;
