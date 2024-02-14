@@ -22,18 +22,18 @@ CREATE TABLE appartement(
     valide_proprio boolean,
     proprietaire integer,
     addresse integer,
-    CONSTRAINT proprietaire FOREIGN KEY(id) REFERENCES utilisateur(id),
-    CONSTRAINT addresse FOREIGN KEY(id) REFERENCES addresse(id)
+    CONSTRAINT proprietaire FOREIGN KEY(proprietaire) REFERENCES utilisateur(id),
+    CONSTRAINT addresse FOREIGN KEY(addresse) REFERENCES addresse(id)
 );
 
 CREATE TABLE reservation(
     id serial PRIMARY KEY,
     date_debut DATE,
     date_fin DATE,
-    proprietaire integer,
-    addresse integer,
-    CONSTRAINT proprietaire FOREIGN KEY(id) REFERENCES utilisateur(id), 
-    CONSTRAINT lieu FOREIGN KEY(id) REFERENCES appartement(id)
+    client integer,
+    lieu integer,
+    CONSTRAINT client FOREIGN KEY(client) REFERENCES utilisateur(id), 
+    CONSTRAINT lieu FOREIGN KEY(client) REFERENCES appartement(id)
 );
 
 -- 1 user pr statut

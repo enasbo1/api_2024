@@ -34,8 +34,8 @@ class Service_reservation
         return;
     }
 
-    public function create_reservation($appartement,$debut,$fin){
-        $this->repostitory->create_reservation($appartement,$debut,$fin);
+    public function create_reservation($appartement,$debut,$fin,$client){
+        $this->repostitory->create_reservation($appartement,$debut,$fin,$client);
     }
     public function verif_dispo(){
 
