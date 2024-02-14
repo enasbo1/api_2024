@@ -26,7 +26,13 @@ class Service_addresse
             }
         }
         if ($not_in){
-            $this->repostitory->add_one($lieu);
+            $id = $this->repostitory->add_one($lieu);
+            if (is_null($id)){
+                resolve_with_message(500, "l'addresse n'a pas pu être sauvegardée");
+            }
+            else{
+                return $id;
+            }
         }else{
             resolve_with_message(400, "l'addresse existe déjà");
         }

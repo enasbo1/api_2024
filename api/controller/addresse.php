@@ -25,8 +25,8 @@ function addresse_controler($uri)
                     "lieu"=>"r"
                 ]);
                 if (is_null($error)){
-                    $model->add_one($_POST["lieu"]);
-                    resolve_with_message(201, "l'addresse a bien été enregistré");
+                    $id = $model->add_one($_POST["lieu"]);
+                    resolve_with_content(201, $id);
                 }else{
                     resolve_with_message(400, $error);
                 }
