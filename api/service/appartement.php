@@ -31,4 +31,4 @@ class Service_appartement
             return $this->repository->delete($id);
         }
     }
-?>
+}
