@@ -19,6 +19,7 @@ function reservation_controler($uri)
                 if(is_null($err)){
                     $model->verif_date_start($header["debut"]);
                     $model->verif_date_debut_fin($header["debut"],$header["fin"]);
+                    $model->is_available($header["lieu"],$header["debut"],$header["fin"]);
                     $model->create_reservation($header["lieu"],$header["debut"],$header["fin"], $_SESSION["utilisateur"]->id);
                     resolve_with_message(200, "votre réservation a bien été effectué");
                 } else {
@@ -49,8 +50,13 @@ function reservation_controler($uri)
                 resolve_with_message(400, "Please provide the reservation code");
                 break;
             }
-            
-
+        case "GET":
+            if($user->has_access(1)){
+                $model->get_list_reservation_client($_SESSION["utilisateur"]->id);
+            }else{
+                resolve_with_message(403, "vous n'avez pas les droits pour accéder à cette procédure, connectez-vous");
+            }
             break;
+
     }
 }
