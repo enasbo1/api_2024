@@ -60,7 +60,7 @@ class Service_reservation
     public function is_owner($appartement,$client){
         $ownerV = $this->repostitory->is_owner($appartement,$client);
         if(!$ownerV){
-            resolve_with_message(400,"Vous n'êtes pas autoriser à annuler cette réservation");
+            resolve_with_message(400,"Vous n'êtes pas autorisé à annuler cette réservation");
         }
     }
 

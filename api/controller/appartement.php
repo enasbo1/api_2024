@@ -5,64 +5,72 @@ function appartement_controler($uri)
 {
     $model = new Service_appartement();
     $user = new Service_utilisateur();
+    $_POST = getallheaders();
 
     switch ($_SERVER['REQUEST_METHOD']) {
         case "GET":
-            $_POST = getallheaders();
-            $id = header_verification([
-                "id" => "r"
-            ]);
-            if (is_null($id)) {
-                //$model->get_list();
-                resolve_with_message(200,$model->get_list());
+            if (count($uri)<4) {
+                resolve_with_content(200,$model->get_list());
                 //
-            } else {
-                resolve_with_message(400, "...");
+            } elseif(filter_var($uri[3],FILTER_VALIDATE_INT)){
+                $resultat = $model->get_appartement($uri[3]);
+                resolve_with_content(200, $resultat);
+            }else{
+                resolve_with_message(400, "mauvaise requete");
             }
             break;
         case "POST":
-            if(0){ // desactiver pour effectuer des test temporaire
             if(!$user->has_access(1)){
                 resolve_with_message(403, "Please login");
                 break;
             }
-            }
-            $_POST = getallheaders();
-            $appartement = header_verification([
-                "capacite"=>"r",
-                "superficie" => "r",
-                // "disponible" => "availaible",
-                "prix" => "r",
-                // "v_admin" => "r",
-                // "v_proprio" => "r",
-                // "id_proprio" => "id_proprio",
-                "id_addresse" => "r"
-            ]);
-            if (is_null($appartement)) {
-            } else {
-                resolve_with_message(200, "Please provide a capacity, a space, a price, a street");
+            if ($user->has_access(3) && (!isset($_POST["status"]) || ($_POST["status"]==3))){
+                $error = header_verification([
+                    "capacite"=>"r !int",
+                    "superficie" => "r !int",
+                    "prix" => "r !float",
+                    "proprietaire" => "r !int",
+                    "addresse" => "r !int"
+                ]);
+                if (is_null($error)){
+                    $model->create_appartement($_POST, $_POST["proprietaire"], true);
+                    resolve_with_message(200,"l'appartement a bien été créé");
+                }
+                else{
+                    resolve_with_message(400,$error);
+                }
+            }else{
+                $error = header_verification([
+                    "capacite"=>"r !int",
+                    "superficie" => "r !int",
+                    "prix" => "r !float",
+                    "addresse" => "r !int"
+                ]);
+                if (is_null($error)) {
+                    $model->create_appartement($_POST, $_SESSION['utilisateur']->id);
+                    resolve_with_message(200,"l'appartement a bien été créé");
+                } else {
+                    resolve_with_message(400, "Please provide a capacity, a space, a price, a street");
+                    break;
+                }
                 break;
             }
-            
-            resolve_with_message(200,"code pour creer un appartement");
-            break;
         case "DELETE":
-            if(!$user->has_access(1)){
+            if(!$user->has_access(3)){
                 resolve_with_message(403, "Please login");
                 break;
             }
-            $_POST = getallheaders();
             $id = header_verification([
                 "id" => "r"
             ]);
-            resolve_with_message(200,"code pour supprimer un appartement");
+            resolve_with_message(503,"la suppression des appartement n'est pas encore implementé");
             break;
         case "PATCH":
             if(!$user->has_access(1)){
                 resolve_with_message(403, "Please login");
                 break;
             }
-            resolve_with_message(200,"code pour modifier appartement");
+            resolve_with_message(503,"la modification des appartement n'est pas encore implementé");
             break;
     }
 }

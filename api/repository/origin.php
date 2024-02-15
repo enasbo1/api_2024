@@ -1,5 +1,7 @@
 <?php
+
 use LDAP\Result;
+
 class Repository_origin
 {
     private $connection = null;
@@ -14,6 +16,11 @@ class Repository_origin
         } catch (Exception $e) {
             throw new Exception("Database connection failed :" . $e->getMessage());
         }
+    }
+
+    public function get_connection()
+    {
+        return $this->connection;
     }
 
     public function post(string $table, array $array)
@@ -66,7 +73,7 @@ class Repository_origin
             } else {
                 $q .= " AND ";
             }
-            $q .= $key . ' = \'' . $val ."'";
+            $q .= $key . ' = \'' . $val . "'";
         }
         $elements = pg_query($this->connection, $q);
         return pg_fetch_all($elements);
@@ -77,7 +84,7 @@ class Repository_origin
         try {
             $q = "UPDATE $table SET ";
             $i = 1;
-            foreach ($updates as $col=>$value) {
+            foreach ($updates as $col => $value) {
                 $q .= $col . " = '" . $value . "'";
                 if ($i < count($updates)) {
                     $q = $q . ",";
@@ -93,10 +100,9 @@ class Repository_origin
                 } else {
                     $q .= " AND ";
                 }
-                $q .= $key . ' = \'' . $val ."'";
+                $q .= $key . ' = \'' . $val . "'";
             }
             pg_query($this->connection, $q);
-
         } catch (Exception $e) {
             die('Erreur : ' . $e->getMessage());
         }
@@ -106,5 +112,15 @@ class Repository_origin
     {
         $q = 'DELETE FROM ' . strtoupper($table) . ' WHERE ' . $attribut . ' = ' . $value;
         pg_query($this->connection, $q);
+    }
+
+    public function query_params(String $query, array $values)
+    {
+        try {
+            $reponse = pg_query_params($this->connection, $query, $values);
+            return pg_fetch_all($reponse);
+        } catch (Exception $e) {
+            die('Erreur : ' . $e->getMessage());
+        }
     }
 }

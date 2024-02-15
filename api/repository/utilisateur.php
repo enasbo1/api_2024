@@ -16,12 +16,11 @@ class Repository_utilisateur extends Repository_origin
         $element = $this->get("utilisateur", ["id", "nom", "status"], ["nom" => $nom]);
         if ($element == []) {
             return null;
-        }else{
+        } else {
             $utilisateur = new Utilisateur;
             $utilisateur->set_from_array($element[0]);
             return $utilisateur;
         }
-
     }
 
     public function inscription(String $nom, String $mdp, int $status)
@@ -33,14 +32,21 @@ class Repository_utilisateur extends Repository_origin
         ]);
     }
 
+    public function get_status(int $utilisateur)
+    {
+        $reponse = $this->get("utilisateur", ["status"], ["id" => $utilisateur]);
+        if (count($reponse) > 0) {
+            return $reponse[0]['status'];
+        }
+    }
     public function get_all()
     {
-        $reponse = $this->get("utilisateur",["id", "nom", "status"], []);
+        $reponse = $this->get("utilisateur", ["id", "nom", "status"], []);
         return $reponse;
     }
 
     public function modifier_status(int $utilisateur_id, int $status)
     {
-        $this->update("utilisateur",["status"=>$status], ["id"=>$utilisateur_id]);
+        $this->update("utilisateur", ["status" => $status], ["id" => $utilisateur_id]);
     }
 }

@@ -8,54 +8,63 @@ function reservation_controler($uri)
 
     switch ($_SERVER['REQUEST_METHOD']) {
         case 'POST':
-            if($user->has_access(1)){
+            if ($user->has_access(1)) {
                 $_POST = getallheaders();
                 $err = header_verification([
                     "debut" => "r",
                     "fin" => "r",
-                    "lieu" => "r"
+                    "lieu" => "r !int"
                 ]);
                 $header = $_POST;
-                if(is_null($err)){
+                if (is_null($err)) {
                     $model->verif_date_start($header["debut"]);
+<<<<<<< HEAD
                     $model->verif_date_debut_fin($header["debut"],$header["fin"]);
                     $model->is_available($header["lieu"],$header["debut"],$header["fin"]);
                     $model->create_reservation($header["lieu"],$header["debut"],$header["fin"], $_SESSION["utilisateur"]->id);
                     resolve_with_message(200, "votre réservation a bien été effectué");
+=======
+                    $model->verif_date_debut_fin($header["debut"], $header["fin"]);
+                    $model->create_reservation($header["lieu"], $header["debut"], $header["fin"], $_SESSION["utilisateur"]->id);
+                    resolve_with_message(200, "votre réservation a bien été effectuée");
+>>>>>>> cd6c3a4bf7ff54c630bc7c296878d1d678863d70
                 } else {
                     resolve_with_message(400, "Please provide the selected appartement and a duration (date of start and date of end)");
                 }
-            }else{
+            } else {
                 resolve_with_message(403, "vous n'avez pas les droits pour accéder à cette procédure, connectez-vous");
             }
             break;
 
         case 'DELETE':
-            if(0){ //temporary
-            if(!$user->has_access(1)){
+            if (!$user->has_access(1)) {
                 resolve_with_message(403, "Please login");
                 break;
-            }
-            }
-            $_POST = getallheaders();
-            $err = header_verification([
-                "reservation_ID" => "r"
-            ]);
-            $header = $_POST;
-            if(is_null($err)){
-                $model->is_owner($header["reservation_ID"],$_SESSION["utilisateur"]->id);
-                $model->delete_reservation($header["reservation_ID"]);
-                resolve_with_message(200, "reservation annulé avec succes");
             } else {
-                resolve_with_message(400, "Please provide the reservation code");
-                break;
+                $_POST = getallheaders();
+                $err = header_verification([
+                    "reservation_ID" => "r !int"
+                ]);
+                $header = $_POST;
+                if (is_null($err)) {
+                    $model->is_owner($header["reservation_ID"], $_SESSION["utilisateur"]->id);
+                    $model->delete_reservation($header["reservation_ID"]);
+                    resolve_with_message(200, "reservation annulée avec succes");
+                } else {
+                    resolve_with_message(400, "Please provide the reservation code");
+                    break;
+                }
             }
+<<<<<<< HEAD
         case "GET":
             if($user->has_access(1)){
                 $model->get_list_reservation_client($_SESSION["utilisateur"]->id);
             }else{
                 resolve_with_message(403, "vous n'avez pas les droits pour accéder à cette procédure, connectez-vous");
             }
+=======
+
+>>>>>>> cd6c3a4bf7ff54c630bc7c296878d1d678863d70
             break;
 
     }
