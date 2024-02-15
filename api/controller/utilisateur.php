@@ -17,7 +17,7 @@ function utilisateur_controler($uri)
         case "UPDATE":
             if ($model->has_access(3)) {
                 $error = header_verification([
-                    "status" => "!int :<,4"
+                    "status" => "r !int :<,4"
                 ]);
                 if (is_null($error)) {
                     $header = $_POST;

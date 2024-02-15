@@ -28,9 +28,9 @@ class Repository_appartement extends Repository_origin
         return $result;
     }
 
-    public function add_new($data)
+    public function add_new(Appartement $appartement)
     {
-        $this->post('appartement', $data);
+        $this->post('appartement', $appartement->get_as_array());
     }
 
     public function update_one($id, $data)

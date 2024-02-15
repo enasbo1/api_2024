@@ -67,6 +67,9 @@ class Service_utilisateur
         resolve_with_message(200, "l'utilisateur a bien été déconnecté");
     }
 
+    public function get_status(int $utilisateur){
+        return $this->repostitory->get_status($utilisateur);
+    }
     public function get_all()
     {
         $utilisateurs = $this->repostitory->get_all();

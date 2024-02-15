@@ -13,7 +13,7 @@ function reservation_controler($uri)
                 $err = header_verification([
                     "debut" => "r",
                     "fin" => "r",
-                    "lieu" => "r"
+                    "lieu" => "r !int"
                 ]);
                 $header = $_POST;
                 if (is_null($err)) {
@@ -36,7 +36,7 @@ function reservation_controler($uri)
             } else {
                 $_POST = getallheaders();
                 $err = header_verification([
-                    "reservation_ID" => "r"
+                    "reservation_ID" => "r !int"
                 ]);
                 $header = $_POST;
                 if (is_null($err)) {
