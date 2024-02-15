@@ -38,6 +38,6 @@ class Repository_reservation extends Repository_origin
 
     public function get_list_reservation_client($id){
         $list = $this->get("reservation",["id","date_debut","date_fin"],["client"=> $id]);
-        var_dump($list);
+        return $list;
     }
 }

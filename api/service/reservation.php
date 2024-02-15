@@ -57,8 +57,8 @@ class Service_reservation
         $this->repostitory->create_reservation($appartement,$debut,$fin,$client);
     }
 
-    public function is_owner($appartement,$client){
-        $ownerV = $this->repostitory->is_owner($appartement,$client);
+    public function is_owner($reservation, $client){
+        $ownerV = $this->repostitory->is_owner($reservation, $client);
         if(!$ownerV){
             resolve_with_message(400,"Vous n'êtes pas autorisé à annuler cette réservation");
         }
@@ -70,6 +70,7 @@ class Service_reservation
 
     public function get_list_reservation_client($client){
         $list = $this->repostitory->get_list_reservation_client($client);
+        return $list;
     }
     public function verif_dispo(){
 
