@@ -100,7 +100,7 @@ function header_verification(array $form): String|null
                 $_POST[$key] = "";
             }
         }
-        header_dechiffre($_POST[$key], $type, $key);
+        return header_dechiffre($_POST[$key], $type, $key);
     }
     return null;
 }
